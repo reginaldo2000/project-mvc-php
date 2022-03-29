@@ -6,6 +6,18 @@ class View
 {
 
     /**
+     * @var array
+     */
+    private static $vars = [];
+
+    /**
+     * @param array $vars
+     */
+    public static function init($vars = [])
+    {
+        self::$vars = $vars;
+    }
+    /**
      * @param string $view
      * @return string
      */
@@ -23,6 +35,8 @@ class View
     public static function render($view, $vars = [])
     {
         $contentView = self::getContentView($view);
+
+        $vars = array_merge(self::$vars, $vars);
 
         $keys = array_keys($vars);
         $keys = array_map(function ($item) {

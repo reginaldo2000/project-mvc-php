@@ -2,13 +2,22 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
+use App\Http\Router;
 use App\Controller\Pages\Home;
 use App\Http\Response;
+use App\Utils\View;
 
-$response = new Response(200, "Hello  todo mundo!!!!");
-//var_dump($response);
-$response->sendResponse();
+define('URL', 'http://localhost/project-mvc-php');
+$route = new Router(URL);
 
-var_dump($response->getHeaders());
-exit;
-echo Home::getHome();
+View::init([
+    'URL' => URL
+]);
+
+$route->get('/', [
+    function () {
+        return new Response(200, Home::getHome());
+    }
+]);
+
+$route->run()->sendResponse();
