@@ -4,6 +4,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 use App\Http\Router;
 use App\Controller\Pages\Home;
+use App\Controller\Pages\UserController;
 use App\Http\Response;
 use App\Utils\View;
 
@@ -17,6 +18,14 @@ View::init([
 $route->get('/', [
     function () {
         return new Response(200, Home::getHome());
+    }
+]);
+
+$route->get('/api/user', [
+    function () {
+        $response = new Response(200, UserController::getUser(505));
+        $response->setContentType('application/json');
+        return $response;
     }
 ]);
 
