@@ -2,25 +2,21 @@
 
 namespace App\Controller\Pages;
 
-use App\Http\Response;
-use App\Model\Entity\User;
-use Exception;
+use App\Http\Request;
+use App\Utils\View;
 
 class UserController
 {
 
-    public static function getUser($id)
+    public static function showLogin()
     {
-        try {
-            $user = User::getUser($id);
-            $response = [
-                'cpf' => $user->username,
-                'matricula' => $user->username,
-                'nome' => utf8_encode($user->firstname)
-            ];
-            return $response;
-        } catch (Exception $e) {
-            return ['erro'=> $e->getMessage()];
-        }
+        return View::render('pages/login');
+    }
+
+    /**
+     * @param array $data
+     */
+    public static function efetuarLogin(Request $data) {
+        var_dump($data);
     }
 }

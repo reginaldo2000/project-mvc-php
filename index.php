@@ -3,12 +3,11 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use App\Http\Router;
-use App\Controller\Pages\Home;
 use App\Controller\Pages\UserController;
 use App\Http\Response;
 use App\Utils\View;
 
-define('URL', 'http://localhost/project-mvc-php');
+define('URL', 'http://localhost/projeto');
 $route = new Router(URL);
 
 View::init([
@@ -16,16 +15,14 @@ View::init([
 ]);
 
 $route->get('/', [
-    function () {
-        return new Response(200, Home::getHome());
+    function ($teste) {
+        return new Response(200, UserController::showLogin());
     }
 ]);
 
-$route->get('/api/user', [
-    function () {
-        $response = new Response(200, UserController::getUser(505));
-        $response->setContentType('application/json');
-        return $response;
+$route->post('/efetuarlogin', [
+    function($data) {
+        return new Response(200, UserController::efetuarLogin($data));
     }
 ]);
 
